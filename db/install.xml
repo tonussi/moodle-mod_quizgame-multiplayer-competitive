@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<XMLDB PATH="mod/quizgame/db"
+       VERSION="20160829"
+       COMMENT="This is the Quiz Game module database scheme"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+
+  <TABLES>
+    <TABLE NAME="quizgame" COMMENT="Table quizgames that hold default data for the games of questions.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Table primary identification"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course quizgame activity belongs to"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances"/>
+        <FIELD NAME="grade" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="5" COMMENT="The total that the quizgame overall grade is scaled to be out of."/>        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction of the quizgame activity"/>
+        <FIELD NAME="sumgrades" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="5" COMMENT="The total of all the question instance maxmarks."/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="quizgame_scores" COMMENT="The scores of all players playing quizgame.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Table primary identification"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false" COMMENT="The id of the user that achieved the score"/>
+        <FIELD NAME="rights" TYPE="int" LENGTH="20" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The score the player got"/>
+        <FIELD NAME="bonus" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="5" COMMENT="The total of all the question instance maxmarks."/>
+        <FIELD NAME="quantity" TYPE="int" LENGTH="20" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The score the player got"/>
+        <FIELD NAME="match" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="The identifier of a match already recorded and played."/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" COMMENT="The id of the user that achieved the score"/>
+        <KEY NAME="fk_match" TYPE="foreign" FIELDS="match" REFTABLE="quizgame_record_matches" REFFIELDS="id" COMMENT="The id of the user that achieved the score"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="quizgame_question_pack" COMMENT="This table store the questions associations to create the sequences of questions, in order to make the game for the users.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Table primary identification"/>
+        <FIELD NAME="question" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Question id"/>
+        <FIELD NAME="configuration" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Configuration id"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_question" TYPE="foreign" FIELDS="question" REFTABLE="question" REFFIELDS="id" COMMENT="A reference to a certain question"/>
+        <KEY NAME="fk_configuration" TYPE="foreign" FIELDS="configuration" REFTABLE="quizgame_game_configuration" REFFIELDS="id" COMMENT="Questions linked to a game configuration."/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="quizgame_game_configuration" COMMENT="Configurations of games.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Table primary identification"/>
+        <FIELD NAME="quizgame" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Reference to some instance module id created"/>
+        <FIELD NAME="name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="A silly name for a match"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="A silly description for a match"/>
+        <FIELD NAME="time" TYPE="int" LENGTH="5" NOTNULL="false" DEFAULT="60" SEQUENCE="false" COMMENT="A certain amount of time for all questions in a package"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_quizgame" TYPE="foreign" FIELDS="quizgame" REFTABLE="quizgame" REFFIELDS="id" COMMENT="Key reference to a instance of quizgame that has been already created on some course whatever, go."/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="quizgame_record_matches" COMMENT="This table store current matches.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Table primary identification"/>
+        <FIELD NAME="key" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Key game to enter into the match"/>
+        <FIELD NAME="quizgame" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Reference to some instance module id created"/>
+        <FIELD NAME="hidden" TYPE="int" LENGTH="5" DEFAULT="1" NOTNULL="true" SEQUENCE="false" COMMENT="Hiddenize the game"/>
+        <FIELD NAME="configuration" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Configuration id"/>
+        <FIELD NAME="date_match" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="The match date currently in action"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_quizgame" TYPE="foreign" FIELDS="quizgame" REFTABLE="quizgame" REFFIELDS="id" COMMENT="Key reference to a instance of quizgame that has been already created on some course whatever, go."/>
+        <KEY NAME="fk_configuration" TYPE="foreign" FIELDS="configuration" REFTABLE="quizgame_game_configuration" REFFIELDS="id" COMMENT="Questions linked to a game configuration."/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="quizgame_answers_game" COMMENT="This table store current matches.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Table primary identification"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false" COMMENT="The id of the user that achieved the score"/>
+        <FIELD NAME="current_answer" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="A answer"/>
+        <FIELD NAME="current_question" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="A question id"/>
+        <FIELD NAME="key" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Key game to enter into the match"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" COMMENT="The id of the user that achieved the score"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="quizgame_state_game" COMMENT="States of games.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Table primary identification"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false" COMMENT="The id of the user that achieved the score"/>
+        <FIELD NAME="quizgame" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Reference to some instance module id created"/>
+        <FIELD NAME="key" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="The key of a finite state machine for the questions"/>
+        <FIELD NAME="state" TYPE="int" LENGTH="10" DEFAULT="-9999" NOTNULL="true" SEQUENCE="false" COMMENT="Current state of the questions watch maker finite state machine"/>
+        <FIELD NAME="oldstate" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Old state for synch. purposes."/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_quizgame" TYPE="foreign" FIELDS="quizgame" REFTABLE="quizgame" REFFIELDS="id" COMMENT="Key reference to a instance of quizgame that has been already created on some course whatever, go."/>
+        <KEY NAME="fk_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" COMMENT="The id of the user that achieved the score"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="quizgame_grades" COMMENT="Stores the overall grade for each user on the quiz, based on their various attempts and the quiz.grademethod setting.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="quizgame" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key references quiz.id."/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key references user.id."/>
+        <FIELD NAME="grade" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="5" COMMENT="The overall grade from the quiz. Not affected by overrides in the gradebook."/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Unix date for logging reasons"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The last time this grade changed."/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_quizgame" TYPE="foreign" FIELDS="quizgame" REFTABLE="quizgame" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

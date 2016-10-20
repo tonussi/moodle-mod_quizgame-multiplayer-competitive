@@ -1,0 +1,94 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template mod_quizgame/index_page
+
+    Starting point for an awesome template.
+    This is how much I hate moodle_template
+
+}}
+
+<div class="container-fluid" style="overflow-y: scroll;">
+
+  <h1>{{viewquizgame}}</h2>
+
+  <p>{{infogamesteacher}}</p>
+  <a href="{{wwwroot}}views/teacher.php?id={{quizgame}}&courseid={{courseid}}&qgid={{qgid}}&form={{form}}" class="btn btn-secondary btn-lg btn-block"><h1>{{gamescreated}} <i class="fa fa-refresh" aria-hidden="true"></i></h1></a>
+
+  <h1>{{quizgametitle}}</h1>
+  <div ng-app="tforms">
+    <div ng-controller="TeacherFormController as tfc">
+      <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>Opções</th>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Tempo</th>
+              <th>ID Configuração</th>
+              <th>Data</th>
+              <th>Chave</th>
+              <th>Jogadores</th>
+              <th>IDs Questões</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Opções</th>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Tempo</th>
+              <th>ID Configuração</th>
+              <th>Data</th>
+              <th>Chave</th>
+              <th>Jogadores</th>
+              <th>IDs Questões</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {{#cfgstoday}}
+            <tr>
+              <td>
+              {{#qids}}
+                <a href="{{wwwroot}}views/watch.php?id={{quizgame}}&courseid={{courseid}}&qgid={{qgid}}&uids={{uids}}&key={{key}}&qids={{qids}}&time={{time}}&dtmatch={{dtmatch}}&cfgid={{cfgid}}&tid={{tid}}&title={{title}}" class="btn btn-secondary btn-lg btn-block"><i class="fa fa-rocket" aria-hidden="true"></i></a>
+              {{/qids}}
+              {{^qids}}
+                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+              {{/qids}}
+              <a href="{{wwwroot}}restforms.php?id={{quizgame}}&courseid={{courseid}}&qgid={{qgid}}&key={{key}}&form=hiddengame" class="btn btn-secondary btn-lg btn-block"><i class="fa fa-lock" aria-hidden="true"></i></a>
+              </td>
+              <td>{{name}}</td>
+              <td>{{descr}}</td>
+              <td>{{time}}</td>
+              <td>{{cfgid}}</td>
+              <td>{{dtmatch}}</td>
+              <td>{{key}}</td>
+              <td>{{uids}}</td>
+              {{#qids}}
+              <td>{{qids}}</td>
+              {{/qids}}
+              {{^qids}}
+              <td class="invalid">{{choosequestions}}</td>
+              {{/qids}}
+            </tr>
+            {{/cfgstoday}}
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>

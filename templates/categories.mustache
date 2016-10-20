@@ -1,0 +1,44 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template mod_quizgame/index_page
+
+    Starting point for an awesome template.
+    This is how much I hate moodle_template
+
+}}
+
+<h1>{{selectcategory}} <h4>{{createpackage}}</h4></h1>
+<div ng-app="tforms">
+  <div ng-controller="CategoriesFormController as cat">
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label for="selectbasic">{{selectcategory}}</label>
+      <div class="col-md-2">
+        <select id="selectbasic" name="selectbasic" class="form-control" ng-model="catid" required>
+          {{#categories}}
+            <option value="{{id}}">ID: {{id}} Nome: {{name}}</option>
+          {{/categories}}
+        </select>
+      </div>
+      <a class="btn btn-default" ng-href="{{wwwroot}}{{value}}?id={{id}}&courseid={{courseid}}&qgid={{qgid}}&catid={{ngcatid}}&form={{form}}">{{createpackage}}</a>
+    </div>
+
+  </div>
+</div>

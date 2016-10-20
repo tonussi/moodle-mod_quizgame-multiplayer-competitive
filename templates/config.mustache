@@ -1,0 +1,80 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+{{!
+    @template mod_quizgame/index_page
+
+    Starting point for an awesome template.
+    This is how much I hate moodle_template
+
+}}
+
+<div ng-app="tforms">
+  <div ng-controller="FormConfigurationController as fcc">
+
+    <form class="form-horizontal">
+    <fieldset>
+
+    <!-- Form Name -->
+    <legend>{{newconfig}}</legend>
+
+    <h3>{{name}}</h3>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label for="textinput">{{cfgname}}</label>
+      <div class="col-md-4">
+      <textarea class="form-control"
+                id="textarea" name="textarea"
+                ng-model="name" required></textarea>
+      </div>
+    </div>
+
+    <h3>{{adddescr}}</h3>
+
+    <!-- Textarea -->
+    <div class="form-group">
+      <label for="textarea">{{descr}}</label>
+      <div class="col-md-4">
+        <textarea class="form-control"
+                  id="textarea" name="textarea"
+                  ng-model="description" required></textarea>
+      </div>
+    </div>
+
+    <h3>{{addtime}}</h3>
+
+    <label>{{tempo}}</label>
+    <input type="number" name="input" ng-model="time" min="5" max="300" required>
+
+    <!-- Button (Double) -->
+    <div class="form-group">
+      <label for="button1id">{{options}}</label>
+      <div class="col-md-8">
+         <div id="messages" class="alert alert-success" data-ng-show="messages.response" data-ng-bind="messages.response"></div>
+      </div>
+      <div class="col-md-8">
+        <button id="button1id" name="button1id" ng-click="fcc.send(name, description, time)" class="btn btn-success">Save</button>
+        <a ng-href="{{wwwroot}}views/teacher.php?id={{quizgame}}" class="btn btn-info">Go Back to Teacher's Page</a>
+      </div>
+    </div>
+
+    </fieldset>
+    </form>
+
+  </div>
+</div>

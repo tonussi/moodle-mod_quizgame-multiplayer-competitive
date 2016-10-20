@@ -1,0 +1,42 @@
+{
+  "name": "Multiplayer Competitive QuizGame",
+  "homepage": "https://github.com/moodlehq/moodle-mod_multiplayerquizgame",
+  "authors": [
+    "tonussi <lptonussi@gmail.com>"
+  ],
+  "description": "quizgame",
+  "main": "index.php",
+  "keywords": [
+    "quizgame",
+    "educational",
+    "games",
+    "moodle",
+    "computer",
+    "science"
+  ],
+  "license": "UFSC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "^1.4.8",
+    "angular-aria": "^1.4.8",
+    "angular-material-icons": "^0.7.1",
+    "angular-material": "^1.1.0",
+    "angular-messages": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-screenfull": "^0.1.1",
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "fontawesome#^4.6.3",
+    "highcharts-ng": "^0.0.12",
+    "highcharts": "^4.2.6",
+    "material-design-icons": "^3.0.1",
+    "jquery": "^3.1.1"
+  }
+}
