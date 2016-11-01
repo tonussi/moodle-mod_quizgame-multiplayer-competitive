@@ -279,6 +279,7 @@ switch ($form) {
         $res['state'] = - 9999;
 
         if ($ready > 0 && $tmp->state != - 9999) {
+
             if ($countanswers == 0) {
 
                 $record = new stdClass();
@@ -298,6 +299,7 @@ switch ($form) {
                     $res['message'] = "answer creation failed.";
                     $res['warning'] = 'NACK';
                 }
+
             } else {
 
                 // this line synchronize students with a teacher
