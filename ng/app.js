@@ -223,14 +223,14 @@
                 method: 'POST',
                 url: posturl,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function(data) {
+            }).then(function successCallback(callbackInformation) {
                 $scope.messages = {
-                    response: data.message,
-                    warning: data.warning
+                    response: callbackInformation.data.message,
+                    warning: callbackInformation.data.warning
                 }
-            }).error(function(errors) {
-                console.log(errors);
-            });
+            }, function errorCallback(response) {
+                console.log(response)
+            })
         };
 
         this.quitgame = function() {
@@ -272,23 +272,23 @@
                 method: 'POST',
                 url: posturl,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function(data) {
+            }).then(function successCallback(callbackInformation) {
                 $scope.messages = {
-                    response: data.message,
+                    response: callbackInformation.data.message,
                 };
 
                 setTimeout(function() {
                     $scope.$apply(function() {
                         counterSynchro = {
-                            countdown: data.countdown
+                            countdown: callbackInformation.data.countdown
                         };
                     });
                 }, 500);
 
                 console.log(counterSynchro.countdown);
-            }).error(function(errors) {
-                console.log(errors);
-            });
+            }, function errorCallback(response) {
+                console.log(response)
+            })
         };
 
         var w = screen.width;
@@ -609,8 +609,8 @@
                 method: 'POST',
                 url: posturl,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function(data) {
-
+            }).then(function successCallback(callbackInformation) {
+                   var data = callbackInformation.data;
                    console.log(data);
 
                    var rank = [];
@@ -643,9 +643,9 @@
 		   Service.bridgePerformances = $scope.bridgePerformances;
 	           $rootScope.$emit("CallParentMethod", {});
 
-            }.bind(this)).error(function(errors) {
-                   console.log(errors);
-            });
+            }, function errorCallback(response) {
+                console.log(response)
+            }).bind(this)
         };
 
         $scope.timesup = function() {
@@ -671,13 +671,13 @@
                 method: 'POST',
                 url: posturl,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function(data) {
+            }).then(function successCallback(callbackInformation) {
                 $scope.messages = {
-                    response: data.message,
+                    response: callbackInformation.data.message,
                 }
-            }).error(function(errors) {
-                console.log(errors);
-            });
+            }, function errorCallback(response) {
+                console.log(response)
+            })
         };
 
         this.setstate = function() {
@@ -710,7 +710,8 @@
                 method: 'POST',
                 url: posturl,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function(data) {
+            }).then(function successCallback(callbackInformation) {
+                var data = callbackInformation.data;
 
                 if (data.success) {
                     $scope.messages = {
@@ -727,9 +728,9 @@
                     }
                     console.log(data);
                 }
-            }).error(function(errors) {
-                console.log(errors);
-            });
+            }, function errorCallback(response) {
+                console.log(response)
+            })
         };
 
         this.adjustTimer = function() {
@@ -1039,14 +1040,14 @@
                 method: 'POST',
                 url: posturl,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function(data) {
+            }).then(function successCallback(callbackInformation) {
                 $scope.messages = {
                     response: data.message,
                     warning: data.warning
                 }
-            }).error(function(errors) {
-                console.log(errors);
-            });
+            }, function errorCallback(response) {
+                console.log(response)
+            })
 	};
     };
 
