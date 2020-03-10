@@ -178,7 +178,7 @@
             }.bind(this), function errorCallback(
                 response) {
                 console.log(response);
-            });
+            })
         };
 
         this.getAllAnswers();
@@ -477,7 +477,7 @@
             }.bind(this), function errorCallback(
                 response) {
                 console.log(response);
-            });
+            })
         };
 
         this.getAllAnswers = function() {
@@ -506,7 +506,7 @@
             }.bind(this), function errorCallback(
                 response) {
                 console.log(response);
-            });
+            })
         };
 
         this.getAllQuestions();
@@ -642,10 +642,10 @@
 		   console.log($scope.bridgePerformances);
 		   Service.bridgePerformances = $scope.bridgePerformances;
 	           $rootScope.$emit("CallParentMethod", {});
-
-            }, function errorCallback(response) {
-                console.log(response)
-            }).bind(this)
+           }.bind(this), function errorCallback(
+               response) {
+               console.log(response);
+           });
         };
 
         $scope.timesup = function() {
@@ -1042,8 +1042,8 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(function successCallback(callbackInformation) {
                 $scope.messages = {
-                    response: data.message,
-                    warning: data.warning
+                    response: callbackInformation.data.message,
+                    warning: callbackInformation.data.warning
                 }
             }, function errorCallback(response) {
                 console.log(response)
