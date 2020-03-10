@@ -67,7 +67,8 @@
 		method : 'POST',
 		url : posturl,
 		headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
-	    }).success(function(data) {
+	    }).then(function successCallback(callbackInformation) {
+		var data = callbackInformation.data;
 		if (!data.success) {
 		    $scope.messages = {
 			response : data.message,
@@ -79,9 +80,9 @@
 		    }
 		    console.log(data);
 		}
-	    }).error(function(errors) {
-		console.log(errors);
-	    });
+		}, function errorCallback(response) {
+			console.log(response)
+		})
 	};
 
     });
@@ -133,7 +134,9 @@
 		method : 'POST',
 		url : posturl,
 		headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
-	    }).success(function(data) {
+	    }).then(function successCallback(callbackInformation) {
+		var data = callbackInformation.data;
+
 		if (!data.success) {
 		    $scope.messages = {
 			response : data.message,
@@ -145,9 +148,9 @@
 		    }
 		    console.log(data);
 		}
-	    }).error(function(errors) {
-		console.log(errors);
-	    });
+	    }, function errorCallback(response) {
+			console.log(response)
+		})
 	};
 
     });
@@ -209,7 +212,9 @@
 		method : 'POST',
 		url : posturl,
 		headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
-	    }).success(function(data) {
+	    }).then(function successCallback(callbackInformation) {
+		var data = callbackInformation.data;
+
 		if (!data.success) {
 		    $scope.messages = {
 			response : data.message,
@@ -221,9 +226,9 @@
 		    }
 		    console.log(data);
 		}
-	    }).error(function(errors) {
-		console.log(errors);
-	    });
+	    }, function errorCallback(response) {
+			console.log(response)
+		})
 	};
 
     });
@@ -272,7 +277,9 @@
 		method : 'POST',
 		url : posturl,
 		headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
-	    }).success(function(data) {
+	    }).then(function successCallback(callbackInformation) {
+		var data = callbackInformation.data;
+
 		if (!data.success) {
 		    $scope.messages = {
 			response : data.message,
@@ -284,9 +291,9 @@
 		    }
 		    console.log(data);
 		}
-	    }).error(function(errors) {
-		console.log(errors);
-	    });
+	    }, function errorCallback(response) {
+			console.log(response)
+		})
 	};
 
     });
@@ -337,7 +344,9 @@
 		method : 'POST',
 		url : posturl,
 		headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
-	    }).success(function(data) {
+	    }).then(function successCallback(callbackInformation) {
+		var data = callbackInformation.data;
+
 		if (!data.success) {
 		    $scope.messages = {
 			response : data.message,
@@ -349,9 +358,9 @@
 		    }
 		    console.log(data);
 		}
-	    }).error(function(errors) {
-		console.log(errors);
-	    });
+	    }, function errorCallback(response) {
+			console.log(response)
+		})
 	};
 
     });
@@ -402,7 +411,9 @@
 		method : 'POST',
 		url : posturl,
 		headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
-	    }).success(function(data) {
+	    }).then(function successCallback(callbackInformation) {
+		var data = callbackInformation.data;
+
 		if (!data.success) {
 		    $scope.messages = {
 			response : data.message,
@@ -414,9 +425,9 @@
 		    }
 		    console.log(data);
 		}
-	    }).error(function(errors) {
-		console.log(errors);
-	    });
+	    }, function errorCallback(response) {
+			console.log(response)
+		})
 	};
 
     });
@@ -461,7 +472,9 @@
 		method : 'POST',
 		url : posturl,
 		headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
-	    }).success(function(data) {
+	    }).then(function successCallback(callbackInformation) {
+		var data = callbackInformation.data;
+
 		if (!data.success) {
 		    $scope.messages = {
 			response : data.message,
@@ -473,9 +486,9 @@
 		    }
 		    console.log(data);
 		}
-	    }).error(function(errors) {
-		console.log(errors);
-	    });
+	    }, function errorCallback(response) {
+			console.log(response)
+		})
 	};
 
     });
