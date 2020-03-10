@@ -69,6 +69,7 @@
 		headers : { 'Content-Type' : 'application/x-www-form-urlencoded' }
 	    }).then(function successCallback(callbackInformation) {
 		var data = callbackInformation.data;
+
 		if (!data.success) {
 		    $scope.messages = {
 			response : data.message,
